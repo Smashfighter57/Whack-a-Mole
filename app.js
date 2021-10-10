@@ -38,6 +38,7 @@ function resetState() {
     state.gameTime = 30;
     state.score = 0;
     state.timeUp = 1000;
+    state.isRunning = false;
 }
 // ***************** DOM SELECTORS *****************
 const boardElem = document.getElementById('game');
@@ -71,14 +72,14 @@ function showRandomHole() {
 function startGame(event){
     //every x number of seconds, get a random hole on screen to show a mole
     //make sure that after x seconds that mole disappears
-    console.log('game started')
-    if (state.gameTime === 0) return
+    
+    if (state.gameTime === 0) return;
     if (state.gameTime === 10){
-        state.timeUp = 500
+        state.timeUp = 500;
     }
     state.gameTime --
     showRandomHole();
-    setTimeout(startGame, 1000)
+    setTimeout(startGame, 1000);
 
 }
 
@@ -119,16 +120,28 @@ function renderScore() {
     score.innerText = state.score
 }
 
+function renderStart() {
+    if(!state.isRunning){
+        start.innerHTML = `<button>Start!</button>`;
+    }else {
+        start.innerHTML = '';
+    }
+}
+
 function render() {
-    renderBoard()
-    renderCountdown()
-    renderResetButton()
-    renderScore()
+    renderBoard();
+    renderCountdown();
+    renderResetButton();
+    renderScore();
+    renderStart();
 }
 
 // ***************** EVENT LISTENERS *****************
 
-start.addEventListener('click', startGame)
+start.addEventListener('click', function(event){
+    state.isRunning = true;
+    startGame();
+})
 
 boardElem.addEventListener('click', function(event){
     if(!['hole','mole'].includes(event.target.className)) return;
