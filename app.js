@@ -6,7 +6,7 @@ let boardElem = document.getElementById('game');
 function resetState() {
     state.board = [
         {
-            isUp: true,
+            isUp: false,
             isCivilian: false
         },
         {
@@ -14,19 +14,7 @@ function resetState() {
             isCivilian: false
         },
         {
-            isUp: true,
-            isCivilian: false
-        },
-        {
-            isUp: true,
-            isCivilian: false
-        },
-        {
-            isUp: true,
-            isCivilian: false
-        },
-        {
-            isUp: true,
+            isUp: false,
             isCivilian: false
         },
         {
@@ -34,7 +22,19 @@ function resetState() {
             isCivilian: false
         },
         {
-            isUp: true,
+            isUp: false,
+            isCivilian: false
+        },
+        {
+            isUp: false,
+            isCivilian: false
+        },
+        {
+            isUp: false,
+            isCivilian: false
+        },
+        {
+            isUp: false,
             isCivilian: false
         },
         {
@@ -42,6 +42,7 @@ function resetState() {
             isCivilian: false
         },
     ];
+    state.lastHoleIdx = -1;
     state.players = ['', '']
     state.points = [0, 0];
     state.currentPlayerIdx = 0;
@@ -49,29 +50,50 @@ function resetState() {
 function renderBoard() {
     boardElem.innerText = '';
     for(let i=0; i<state.board.length; i++){
+        //for(let j=0; j<state.board.length; j++) {
         let card = state.board[i]
         // create an HTML element 
         let cellElem = document.createElement('div')
         // add a class, cell, to the div
         cellElem.classList.add('hole')
         // store the index of the card in the board as part of the HTML element attribute dataset
-        cellElem.dataset.index = i
+        cellElem.dataset.index = [i]
         // add the value of the card to the div
         if (card.isUp) cellElem.innerText = "moleMound"
 
+
         boardElem.appendChild(cellElem)
+       // }
     }
 }
 
-//start.addEventListener('click', startGame)
+
+
+let start = document.getElementById('StartGame')
+console.log(start)
+
+start.addEventListener('click', function startGame(event){
+    //every x number of seconds, get a random hole on screen to show a mole
+    //make sure that after x seconds that mole disappears
+    console.log('game started')
+
+    let hole = randomHole()
+    hole.isUp = true
+    renderBoard()
+    setTimeout(function down() {
+            hole.isUp = false
+            renderBoard()
+    }, 5000) 
+
+})
 
 boardElem.addEventListener('click', function(event){
     let idx = event.target.dataset.index
     let card = state.board[idx]
     if (card.isUp === true) {
-        state.points [state.currentPlayerIdx]++
+        state.points[state.currentPlayerIdx]++
         console.log(state.points)
-    } else {state.points [state.currentPlayerIdx]--
+    } else {state.points[state.currentPlayerIdx]--
 
     }
     renderBoard()
@@ -87,30 +109,28 @@ let lastHole;
 let score = 0;
 let timeup = false;
 
-function startGame() {
-    
-}
-
-
 function randomTime(min, max) {
     return Math.round(Math.random() * (max-min) + min);
 }
 
 function randomHole() {
-    const idx = Math.floor(Math.random() * holes.length);
-    const hole = holes[idx];
-
-    //let previousHole = holes.item(targetHole)
-    //previousHole.classList.remove('mole')
-    //targetHole = Math.floor(Math.random()* 9)
-
-    if (hole === lastHole) {
+    const idx = Math.floor(Math.random() * state.board.length);
+    //console.log(idx)
+    if (idx === state.lastHoleIdx) {
         return randomHole();
     }
 
-    lastHole = hole;
+    setInterval(function() {
+        const randomHoleIdx = Math.floor(Math.random() * holes.length);
+        holes[randomHoleIdx].classList.toggle('mole');
+    }, 300);
+
+    const hole = state.board[idx];
+
+    state.lastHoleIdx = idx;
     return hole;
 }
+randomHole()
 
 function peep() {
     const time = randomTime(300, 1000);

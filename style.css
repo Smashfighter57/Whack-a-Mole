@@ -32,19 +32,21 @@ h1 {
 }
 
 #game{
-    width: 600px;
-    height: 400px;
+    width: 100vh;
+    height: 100vh;
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     margin: 0 auto;
 }
 
 .hole{
-    flex: 1 0 33.33%;
-    overflow: hidden;
-    position: relative;
+    display: flex;
+    /* flex: 1 0 33.33%; */
+    /* overflow: hidden; */
+    /*position: relative; */
     border: 1px solid black;
-    width: 30vw;
+    width: 10vh;
     height: 10vh;
 }
 
@@ -53,21 +55,22 @@ h1 {
     background: url(https://toppng.com/uploads/preview/pile-of-dirt-png-11552290224cadercdgyw.png) bottom center no-repeat;
     background-size: contain;
     content: '';
-    width: 100%;
-    height: 100px;
-    position: absolute;
+    width: 10vh;
+    height: 10vh;
+    /* position: absolute; */
     z-index: 2;
-    bottom: -30px;
+    /* bottom: -30px; */
 }
 
 .mole {
     background: url(https://icon2.cleanpng.com/20180513/vbe/kisspng-pull-up-mole-fat-mole-cartoon-animation-5af806aba75b89.6535037215262040756855.jpg) bottom center no-repeat;
     background-size: 50%;
     position: absolute;
-    top: 100%;
-    width: 100%;
-    height: 100%;
-    transition: all 0.5s;
+    /* top: 100%; */
+    width: 10vh;
+    height: 10vh;
+    z-index: 3;
+    transition: all 2.0s;
 }
 
 .hole.up .mole{
