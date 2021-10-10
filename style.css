@@ -66,9 +66,9 @@ h1 {
     background: url(https://icon2.cleanpng.com/20180513/vbe/kisspng-pull-up-mole-fat-mole-cartoon-animation-5af806aba75b89.6535037215262040756855.jpg) bottom center no-repeat;
     background-size: 50%;
     position: absolute;
-    /* top: 100%; */
-    width: 10vh;
-    height: 10vh;
+    /* top: 100%;  */
+    width: 20vh;
+    height: 20vh;
     z-index: 3;
     transition: all 2.0s;
 }

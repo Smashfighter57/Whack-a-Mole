@@ -67,8 +67,6 @@ function renderBoard() {
     }
 }
 
-
-
 let start = document.getElementById('StartGame')
 console.log(start)
 
